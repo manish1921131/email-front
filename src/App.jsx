@@ -11,21 +11,14 @@ function App() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      // Use your EC2 IP directly with HTTPS
+      
       const response = await axios.post("http://13.60.219.40:9090/api/email/generate", {
         emailContent,
         tone: tone || 'professional'
       });
       
-      // DIRECTLY USE THE RESPONSE - NO JSON PARSING NEEDED
       let replyText = response.data;
-      
-      // Just clean up basic formatting
-      replyText = replyText
-        .replace(/\\n/g, '\n')
-        .replace(/\\"/g, '"')
-        .trim();
-      
+      replyText = replyText.replace(/\\n/g, '\n').replace(/\\"/g, '"').trim();
       setGeneratedReply(replyText);
     } catch (error) {
       console.error('Error:', error);
